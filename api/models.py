@@ -73,6 +73,7 @@ class Post(models.Model):
         settings.AUTH_USER_MODEL, related_name="userPost",
         on_delete=models.CASCADE
     )
+    price =models.IntegerField(default=0, null=False)
     created_on = models.DateTimeField(auto_now_add=True)
     img = models.ImageField(blank=True, null=True, upload_to=upload_post_path)
     liked = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="liked", blank=True)
