@@ -57,7 +57,6 @@ class CartViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.CartSerializer
 
     def perform_create(self, serializer):
-        print('fffffff')
         print(self.request.data['cartUserPost'])
         print(self.request.data['cartUserProfile'])
         # UserPost = User.objects.filter(id=self.request.data['cartUserPost'])
@@ -66,13 +65,8 @@ class CartViewSet(viewsets.ModelViewSet):
         serializer.save(cartUserProfile=User.objects.get(pk=self.request.data['cartUserProfile']))
 
 class CartListView(generics.ListAPIView):
-    permission_classes = (AllowAny,)
-    queryset = Cart.objects.select_related('cartUserPost').all()
+    queryset = Cart.objects.select_related('cartUserPost').select_related('post').all()
     serializer_class = serializers.CartListSerializer
-
-
-    for obj in queryset:
-        print(obj.cartUserPost.is_active)
 
     # ログインしているユーザだけを返す
     # userProfileに一致しているユーザだけを返す

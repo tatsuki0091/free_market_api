@@ -40,13 +40,14 @@ class CommentSerializer(serializers.ModelSerializer):
 class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
-        fields = ('id', 'cartUserPost', 'cartUserProfile')
+        fields = ('id', 'cartUserPost', 'cartUserProfile', 'post')
         #extra_kwargs = {'cartUserProfile': {'write_only': True}, 'cartUserPost': {'write_only': True}}
 
 class CartListSerializer(serializers.ModelSerializer):
     cartUserPost = UserSerializer()
     cartUserProfile = UserSerializer()
+    post = PostSerializer()
     class Meta:
         model = Cart
-        fields = ('id', 'cartUserPost', 'cartUserProfile')
+        fields = ('id', 'cartUserPost', 'cartUserProfile', 'post')
         #extra_kwargs = {'cartUserProfile': {'write_only': True}, 'cartUserPost': {'write_only': True}}

@@ -95,6 +95,7 @@ class Cart(models.Model):
         settings.AUTH_USER_MODEL, related_name="cartUserPost", db_column='cartUserPost_id',
         on_delete=models.CASCADE
     )
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
 
     # def __str__(self):
@@ -112,3 +113,4 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.text
+
