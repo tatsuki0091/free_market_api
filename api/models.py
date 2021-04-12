@@ -95,10 +95,26 @@ class Cart(models.Model):
         settings.AUTH_USER_MODEL, related_name="cartUserPost", db_column='cartUserPost_id',
         on_delete=models.CASCADE
     )
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
 
     # def __str__(self):
     #     return self.user.id
+
+# class Purchase(models.Model):
+#     buyerUserProfile = models.ForeignKey(
+#         settings.AUTH_USER_MODEL, related_name="buyerUserProfile",
+#         on_delete=models.CASCADE
+#     )
+#     sellerUserProfile = models.ForeignKey(
+#         settings.AUTH_USER_MODEL, related_name="sellerUserProfile",
+#         on_delete=models.CASCADE
+#     )
+#     post = models.ForeignKey(Post, on_delete=models.CASCADE)
+#     buyerUserProfile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+#     typeOfPayment =
+#     created_on = models.DateTimeField(auto_now_add=True)
 
 
 class Comment(models.Model):
@@ -112,3 +128,4 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.text
+
