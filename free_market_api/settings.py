@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     # JWT認証用のライブラリ
     "djoser",
     "api.apps.ApiConfig",
-    "corsheaders"
+    "corsheaders",
+    # ログ取得用のライブラリ
+    'drf_api_logger',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +56,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # ログの取得用
+    'drf_api_logger.middleware.api_logger_middleware.APILoggerMiddleware',
 ]
 
 CORS_ORIGIN_WHITELIST = [
@@ -83,7 +87,7 @@ WSGI_APPLICATION = 'free_market_api.wsgi.application'
 # オプション追加
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permission.IsAuthenticated'
+        'rest_framework.permissions.IsAuthenticated'
     ],
     # 認証をどのような方法でするのか設定
     'DEFAULT_AUTHENTICATION_CLASSES': [

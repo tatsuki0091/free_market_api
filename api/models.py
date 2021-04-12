@@ -62,6 +62,10 @@ class Profile(models.Model):
     )
     created_on = models.DateTimeField(auto_now_add=True)
     img = models.ImageField(blank=True, null=True, upload_to=upload_avatar_path)
+    postCode = models.CharField(max_length=7, null=True)
+    address1 = models.CharField(max_length=100, null=True)
+    address2 = models.CharField(max_length=100, null=True)
+    phoneNumber = models.CharField(max_length=10, null=True)
 
     def __str__(self):
         return self.nickName
@@ -77,9 +81,41 @@ class Post(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     img = models.ImageField(blank=True, null=True, upload_to=upload_post_path)
     liked = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="liked", blank=True)
+    description = models.CharField(max_length=400, null=True)
 
     def __str__(self):
         return self.title
+
+class Cart(models.Model):
+    cartUserProfile = models.ForeignKey(
+        settings.AUTH_USER_MODEL, related_name="cartUserProfile",
+        on_delete=models.CASCADE
+    )
+    cartUserPost = models.ForeignKey(
+        settings.AUTH_USER_MODEL, related_name="cartUserPost", db_column='cartUserPost_id',
+        on_delete=models.CASCADE
+    )
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    # def __str__(self):
+    #     return self.user.id
+
+# class Purchase(models.Model):
+#     buyerUserProfile = models.ForeignKey(
+#         settings.AUTH_USER_MODEL, related_name="buyerUserProfile",
+#         on_delete=models.CASCADE
+#     )
+#     sellerUserProfile = models.ForeignKey(
+#         settings.AUTH_USER_MODEL, related_name="sellerUserProfile",
+#         on_delete=models.CASCADE
+#     )
+#     post = models.ForeignKey(Post, on_delete=models.CASCADE)
+#     buyerUserProfile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+#     typeOfPayment =
+#     created_on = models.DateTimeField(auto_now_add=True)
+
 
 class Comment(models.Model):
     text = models.CharField(max_length=100)
@@ -92,3 +128,4 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.text
+
