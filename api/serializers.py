@@ -38,16 +38,18 @@ class CommentSerializer(serializers.ModelSerializer):
         extra_kwarg = {'userComment': {'read_only':True}}
 
 class CartSerializer(serializers.ModelSerializer):
+    created_on = serializers.DateTimeField(format='%Y-%m-%d', read_only=True)
     class Meta:
         model = Cart
-        fields = ('id', 'cartUserPost', 'cartUserProfile', 'post')
+        fields = ('id', 'cartUserPost', 'cartUserProfile', 'profile', 'post', 'created_on')
         #extra_kwargs = {'cartUserProfile': {'write_only': True}, 'cartUserPost': {'write_only': True}}
 
 class CartListSerializer(serializers.ModelSerializer):
     cartUserPost = UserSerializer()
     cartUserProfile = UserSerializer()
     post = PostSerializer()
+    profile = ProfileSerializer()
     class Meta:
         model = Cart
-        fields = ('id', 'cartUserPost', 'cartUserProfile', 'post')
+        fields = ('id', 'cartUserPost', 'cartUserProfile', 'profile', 'post', 'created_on')
         #extra_kwargs = {'cartUserProfile': {'write_only': True}, 'cartUserPost': {'write_only': True}}

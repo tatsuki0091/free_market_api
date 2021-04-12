@@ -57,15 +57,15 @@ class CartViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.CartSerializer
 
     def perform_create(self, serializer):
-        print(self.request.data['cartUserPost'])
-        print(self.request.data['cartUserProfile'])
         # UserPost = User.objects.filter(id=self.request.data['cartUserPost'])
         # print(UserPost.get().id)
         serializer.save(cartUserPost=User.objects.get(pk=self.request.data['cartUserPost']))
         serializer.save(cartUserProfile=User.objects.get(pk=self.request.data['cartUserProfile']))
 
 class CartListView(generics.ListAPIView):
-    queryset = Cart.objects.select_related('cartUserPost').select_related('post').all()
+    permission_classes = (AllowAny,)
+
+    queryset = Cart.objects.select_related('cartUserPost').select_related('post').select_related('profile').all()
     serializer_class = serializers.CartListSerializer
 
     # ログインしているユーザだけを返す
